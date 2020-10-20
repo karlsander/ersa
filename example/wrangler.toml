@@ -1,0 +1,6 @@
+name = "ersa-demo"
+type = "webpack"
+account_id = "403ea19268883eeef357200350453f29"
+workers_dev = true
+route = ""
+zone_id = ""

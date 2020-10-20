@@ -1,0 +1,30 @@
+{
+  "name": "ersa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "babel": {
+    "env": {
+      "test": {
+        "plugins": [
+          "@babel/plugin-transform-modules-commonjs"
+        ]
+      }
+    }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "graphql": "^15.3.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.12.1",
+    "@types/jest": "^26.0.14",
+    "jest": "^26.6.0",
+    "node-fetch": "^2.6.1"
+  }
+}
