@@ -24,7 +24,7 @@ The only thing you need to provide to get started with Ersa is an executable Gra
 
 ### Minimalist: graphql.js
 
-The reference GraphQL implementation includes a solid way to create a schema. If you import the required tools directly from the `ersa` package, it add no additional bundle size.
+The reference GraphQL implementation includes a solid way to create a schema. If you import the required tools directly from the `ersa` package, it ads no additional bundle size.
 
 ```js
 import { createRequestHandler } from "ersa";
