@@ -44,7 +44,7 @@ const schema = makeExecutableSchema({
   },
 });
 */
-const gqlHandler = createRequestHandler({ allowOrigins: "*", schema });
+const gqlHandler = createRequestHandler(schema, { allowOrigins: "*" });
 
 addEventListener("fetch", (event) => {
   event.respondWith(gqlHandler(event.request));

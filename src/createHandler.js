@@ -34,24 +34,22 @@ function createRequestHandler(
     customValidateFn: undefined,
   }
 ) {
-  let preflightResponse;
   const baseHeaders = {
     "Content-Type": "application/json",
   };
   if (allowOrigins) {
     baseHeaders["Access-Control-Allow-Origin"] = allowOrigins;
-    preflightResponse = new Response("", {
-      status: 204,
-      headers: {
-        Allow: "OPTIONS, GET, POST",
-        "Access-Control-Allow-Methods": "OPTIONS, GET, POST",
-        "Access-Control-Allow-Origin": allowOrigins,
-      },
-    });
   }
   return async (request = new Request(""), localContext = undefined) => {
     if (request.method === "OPTIONS" && allowOrigins) {
-      return preflightResponse;
+      return new Response("", {
+        status: 204,
+        headers: {
+          Allow: "OPTIONS, GET, POST",
+          "Access-Control-Allow-Methods": "OPTIONS, GET, POST",
+          "Access-Control-Allow-Origin": allowOrigins,
+        },
+      });
     }
     try {
       if (!(request.method === "POST" || request.method === "GET")) {
