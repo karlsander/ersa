@@ -36,9 +36,7 @@ const schema = new GraphQLSchema({
     fields: {
       hi: {
         type: GraphQLString,
-        args: {
-          name: { type: GraphQLString },
-        },
+        args: { name: { type: GraphQLString } },
         resolve: (_root, args) => "Hello " + (args.name ? args.name : "World"),
       },
     },
@@ -68,10 +66,9 @@ const typeDefs = gql`
     hi(name: String): String
   }
 `;
+
 const resolvers = {
-  Query: {
-    hi: (name) => `Hello ${name ? name : "World"}`,
-  },
+  Query: { hi: (name) => `Hello ${name ? name : "World"}` },
 };
 
 const gqlHandler = createRequestHandler(
@@ -95,9 +92,7 @@ const Query = queryType({
   definition(t) {
     t.string("hi", {
       args: { name: "String" },
-      resolve(_root, args) {
-        return `Hello ${args.message ?? "World"}`;
-      },
+      resolve: (_root, args) => `Hello ${args.message ?? "World"}`,
     });
   },
 });
