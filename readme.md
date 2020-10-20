@@ -104,31 +104,6 @@ addEventListener("fetch", (event) => {
 });
 ```
 
-## Stay Lean
-
-As an exercise in extreme efficiency, Ersa provides a lean version that is only 26 KB in size.
-This version skips on validating incoming queries, which is likely a bad choice, but with allow-listing on the roadmap, it may be worth it?
-
-I would like to experiment more with timing parts of the request pipeline and may remove this version if it turns out to be a bad idea. With the low latency and distributed data sources offered by Workers, you can reach latency so low that every millisecond counts. If other features are introduced that increase the size significantly, the lean version will also stay around.
-
-As a bonus, if you use `graphql.js` to construct your schema and read data from Worker-native sources, you can ship an entire GraphQL microservice in ~30KB.
-
-```js
-import { createRequestHandler } from "ersa/lean";
-import { GraphQLSchema, GraphQLObjectType, GraphQLString } from "ersa/graphql";
-
-// ... continue like examples above
-```
-
-## ❤️ express-graphql
-
-It did not start out as one, but currently this project can almost be considered a fork of [`express-graphql`](https://github.com/graphql/express-graphql). In particular, the settings API is the same and I have copied their `http-tests` test suite and adapted it to work against Ersa. In the process of working through the tests, the source code came ever closer to that of `express-graphql`. If you want to know in which ways Ersa is not yet as correct or fully featured as `express-graphql` you can check out which tests are currently skipped. The following features are not supported:
-
-- Solid handling of encoding and compression: will add
-- Configuration as function or promise: may add
-- Pretty printing config with request: eh
-- GraphiQL: will not add (except as extra module)
-
 # API
 
 ## Setup
@@ -192,11 +167,38 @@ Ersa supports the same options as [express-graphql](https://github.com/graphql/e
 
 Note: Some option descriptions where copied from `express-graphql`
 
-# A Note on Bundling
+# Notes
+
+## Stay Lean
+
+As an exercise in extreme efficiency, Ersa provides a lean version that is only 26 KB in size.
+This version skips on validating incoming queries, which is likely a bad choice, but with allow-listing on the roadmap, it may be worth it?
+
+I would like to experiment more with timing parts of the request pipeline and may remove this version if it turns out to be a bad idea. With the low latency and distributed data sources offered by Workers, you can reach latency so low that every millisecond counts. If other features are introduced that increase the size significantly, the lean version will also stay around.
+
+As a bonus, if you use `graphql.js` to construct your schema and read data from Worker-native sources, you can ship an entire GraphQL microservice in ~30KB.
+
+```js
+import { createRequestHandler } from "ersa/lean";
+import { GraphQLSchema, GraphQLObjectType, GraphQLString } from "ersa/graphql";
+
+// ... continue like examples above
+```
+
+## ❤️ express-graphql
+
+It did not start out as one, but currently this project can almost be considered a fork of [`express-graphql`](https://github.com/graphql/express-graphql). In particular, the settings API is the same and I have copied their `http-tests` test suite and adapted it to work against Ersa. In the process of working through the tests, the source code came ever closer to that of `express-graphql`. If you want to know in which ways Ersa is not yet as correct or fully featured as `express-graphql` you can check out which tests are currently skipped. The following features are not supported:
+
+- Solid handling of encoding and compression: will add
+- Configuration as function or promise: may add
+- Pretty printing config with request: eh
+- GraphiQL: will not add (except as extra module)
+
+## On Bundling
 
 This library is not bundled in any way and uses the bundler-only flavor of es module imports. This means it will only work with a bundler that will also bundle it. The best way to build a Cloudflare Worker is with the official `wrangler` CLI and it's automatic webpack setup. This is currently the only tested configuration for Ersa.
 
-# Roadmap
+## Roadmap
 
 The following features are planned or on the wishlist for Ersa
 
