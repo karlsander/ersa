@@ -34,7 +34,7 @@ function createRequestHandler(
     customValidateFn: undefined,
   }
 ) {
-  const baseHeaders = {
+  let baseHeaders = {
     "Content-Type": "application/json",
   };
   if (allowOrigins) {

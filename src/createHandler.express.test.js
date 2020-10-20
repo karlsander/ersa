@@ -1,4 +1,4 @@
-import { createRequestHandler } from "./createHandler";
+import { createRequestHandler } from "./createValidatingHandler";
 import { Request, Response } from "node-fetch";
 import {
   Source,
@@ -12,7 +12,6 @@ import {
   validate,
   buildSchema,
 } from "graphql";
-import { specifiedRules } from "graphql/validation/specifiedRules";
 import { TestSchema, stringifyURLParams, urlString } from "./testUtils";
 
 global.Request = Request;
@@ -68,10 +67,7 @@ describe("GET functionality", () => {
   });
 
   it("Reports validation errors", async () => {
-    const validatingHandler = createRequestHandler(TestSchema, {
-      validationRules: specifiedRules,
-      customValidateFn: validate,
-    });
+    const validatingHandler = createRequestHandler(TestSchema);
     const response = await validatingHandler(
       new Request(
         urlString({
@@ -1175,7 +1171,6 @@ describe("Error handling functionality", () => {
 describe("Custom validate function", () => {
   it("returns data", async () => {
     const validatingHandler = createRequestHandler(TestSchema, {
-      validationRules: specifiedRules,
       customValidateFn: (schema, documentAST, validationRules) => {
         return validate(schema, documentAST, validationRules);
       },
@@ -1192,7 +1187,6 @@ describe("Custom validate function", () => {
 
   it("returns validation errors", async () => {
     const validatingHandler = createRequestHandler(TestSchema, {
-      validationRules: specifiedRules,
       customValidateFn: (schema, documentAST, validationRules) => {
         const errors = validate(schema, documentAST, validationRules);
 
@@ -1231,8 +1225,7 @@ describe("Custom validation rules", () => {
 
   it("Do not execute a query if it do not pass the custom validation.", async () => {
     const validatingHandler = createRequestHandler(TestSchema, {
-      validationRules: [...specifiedRules, AlwaysInvalidRule],
-      customValidateFn: validate,
+      validationRules: [AlwaysInvalidRule],
     });
     const response = await validatingHandler(
       new Request(

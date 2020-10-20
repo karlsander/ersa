@@ -8,7 +8,7 @@ const QueryRootType = new GraphQLObjectType({
       args: {
         who: { type: GraphQLString },
       },
-      resolve: (_root, args) => "Hello " + (args.who ?? "World"),
+      resolve: (_root, args) => "Hello " + (args.who ? args.who : "World"),
     },
     thrower: {
       type: GraphQLString,

@@ -1,3 +1,3 @@
-import { createRequestHandler } from "./createHandler";
+import { createRequestHandler } from "./createValidatingHandler";
 
 export { createRequestHandler };

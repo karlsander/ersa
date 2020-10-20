@@ -1,10 +1,11 @@
 {
   "name": "ersa",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "A GraphQL server built for Cloudflare Workers",
   "main": "src/index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "benchmark": "node -r esm src/benchmark.js"
   },
   "babel": {
     "env": {
@@ -17,14 +18,24 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "graphql": "^15.3.0"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.12.1",
     "@types/jest": "^26.0.14",
+    "esm": "^3.2.25",
     "jest": "^26.6.0",
     "node-fetch": "^2.6.1"
-  }
+  },
+  "files": [
+    "src/index.js",
+    "lean.js",
+    "graphql.js",
+    "src/createHandler.js",
+    "src/createValidatingHandler.js",
+    "src/parseParams.js",
+    "src/hashDocument.js"
+  ]
 }
