@@ -59,7 +59,7 @@ import { createRequestHandler } from "ersa";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 
 // a trick to let your editor provide language support
-const gql = (strings) => string[0];
+const gql = (strings) => strings[0];
 
 const typeDefs = gql`
   type Query {
@@ -82,6 +82,8 @@ addEventListener("fetch", (event) => {
 
 ### Fancy: Nexus with TypeScript
 
+Note: I wrote this example without trying it. Nexus does not work out of the box with Workers because it requires the fs module.
+
 [Nexus](https://nexusjs.org) is a TypeScript powered schema builder from the prisma team. Like the first example with `grapqhl.js`, it is code-first (and only). It is more convenient and fully featured and especially powerful when using TypeScript.
 
 ```js
@@ -92,7 +94,8 @@ const Query = queryType({
   definition(t) {
     t.string("hi", {
       args: { name: "String" },
-      resolve: (_root, args) => `Hello ${args.message ?? "World"}`,
+      resolve: (_root, args) =>
+        `Hello ${args.message ? args.message : "World"}`,
     });
   },
 });
