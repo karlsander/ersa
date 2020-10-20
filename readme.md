@@ -4,7 +4,7 @@ In greek mythology, Ersa is the godess of dew, a lesser known half sister of Apo
 
 - **Tiny**: Because your app should get as much of the 1MB worker limit as possible. It only adds 34 KB.
 - **Tested**: Using a ported version of the express-graphql test suite as well as additional tests for added features.
-- **Familiar**: Ersa works with any executable graphql schema and supports all configuration options offered by `express-graphql`.
+- **Familiar**: Ersa works with any executable graphql schema and supports all applicable configuration options offered by `express-graphql`.
 - **Ready to go**: It works in `wrangler` webpack projects out of the box. No dummy modules, no adapters, no `webpack.config.js`.
 
 ```js
