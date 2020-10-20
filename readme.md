@@ -1,6 +1,6 @@
 # ☁️ Ersa - The quickest way to run GraphQL on Cloudflare Workers
 
-In greek mythology, Ersa is the godess of dew, a lesser known half sister of Apollo. Ersa is also a GraphQL server that is purpose built for Cloudflare Workers. It has none of the cruft of solutions that wheren't built for serverless and handles all cases described in the [Serving over HTTP](https://graphql.org/learn/serving-over-http/) part of the GraphQL documentation. It is comparable to and heavily inspired by [express-graphql](https://github.com/graphql/express-graphql).
+In greek mythology, Ersa is the godess of dew, a lesser known half sister of Apollo. Ersa is also a GraphQL server that is purpose built for Cloudflare Workers. It has none of the cruft of solutions that weren't built for serverless and handles all cases described in the [Serving over HTTP](https://graphql.org/learn/serving-over-http/) part of the GraphQL documentation. It is comparable to and heavily inspired by [express-graphql](https://github.com/graphql/express-graphql).
 
 - **Tiny**: Because your app should get as much of the 1MB worker limit as possible. It only adds 34 KB.
 - **Tested**: Using a ported version of the express-graphql test suite as well as additional tests for added features.
@@ -20,11 +20,11 @@ addEventListener("fetch", (event) => {
 
 ## Bring Your Own Schema
 
-The only thing you need to provide to get started with Ersa is an executable GraphQL schema. The heavy lifting of executing queries is done by the widely used [graphql.js](https://github.com/graphql/graphql-js) library. This means it is compatible with the same type of schema used by tools like `express-graphql`. There are a number of great tools to create a compatible schema. Here are a few example options:
+The only thing you need to provide to get started with Ersa is an executable GraphQL schema. The heavy lifting of executing queries is done by the widely used [graphql.js](https://github.com/graphql/graphql-js) library. This means it is compatible with the same type of schema used by other servers. There are a number of great tools to create a compatible schema. Here are a few example options:
 
 ### Minimalist: graphql.js
 
-The reference graphql implementation includes a solid way to create a schema. For the obssive bundle size optimizers, you can import the required tools directly from the `ersa` package and add no additional code.
+The reference GraphQL implementation includes a solid way to create a schema. If you import the required tools directly from the `ersa` package, it add no additional bundle size.
 
 ```js
 import { createRequestHandler } from "ersa";
@@ -83,9 +83,9 @@ addEventListener("fetch", (event) => {
 });
 ```
 
-### Fancy: Nexus with Typescript
+### Fancy: Nexus with TypeScript
 
-[Nexus](https://nexusjs.org) is a typescript powered schema builder from the prisma team. Like the first example with `grapqhl-js`, it is code-first (and only). it is more convenient and fully featured and especially powerful when using typescript.
+[Nexus](https://nexusjs.org) is a TypeScript powered schema builder from the prisma team. Like the first example with `grapqhl.js`, it is code-first (and only). It is more convenient and fully featured and especially powerful when using TypeScript.
 
 ```js
 import { createRequestHandler } from "ersa";
@@ -111,7 +111,7 @@ addEventListener("fetch", (event) => {
 
 ## Stay Lean
 
-As an exercise of extreme efficiency, Ersa provides a lean version that is only 26 KB in size.
+As an exercise in extreme efficiency, Ersa provides a lean version that is only 26 KB in size.
 This version skips on validating incoming queries, which is likely a bad choice, but with allow-listing on the roadmap, it may be worth it?
 
 I would like to experiment more with timing parts of the request pipeline and may remove this version if it turns out to be a bad idea. With the low latency and distributed data sources offered by Workers, you can reach latency so low that every millisecond counts. If other features are introduced that increase the size significantly, the lean version will also stay around.
@@ -197,11 +197,15 @@ Ersa supports the same options as [express-graphql](https://github.com/graphql/e
 
 Note: Some option descriptions where copied from `express-graphql`
 
+# A Note on Bundling
+
+This library is not bundled in any way and uses the bundler-only flavor of es module imports. This means it will only work with a bundler that will also bundle it. The best way to build a Cloudflare Worker is with the official `wrangler` CLI and it's automatic webpack setup. This is currently the only tested configuration for Ersa.
+
 # Roadmap
 
 The following features are planned or on the wishlist for Ersa
 
-- Typescript Declarations
+- TypeScript Declarations
 - Automatic Persisted Queries with Workers KV
 - Naive full GET query caching with the Cache API
 - Allow-listing queries, possibly in combination with persisted queries
